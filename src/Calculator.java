@@ -6,23 +6,23 @@ public class Calculator {
     String leftOperand = "";
     String rightOperand = "";
 
-    public boolean isValid(String input) throws Exception {
+    public boolean isValid(String a) throws Exception {
         String[] mathSings = {"+", "-", "*", "/"};
         String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
-        if (input.length() < 3) {
+        if (a.length() < 3) {
             return false;
         }
         for (int i = 0; i < mathSings.length; i++) {
-            if (input.contains(mathSings[i])) {
+            if (a.contains(mathSings[i])) {
                 mathSing = mathSings[i];
             }
         }
         if (mathSing.equals("")) {
             throw new Exception("Отсутствует допустимый математический знак: +,-,*,/");
         }
-        leftOperand = input.substring(0, input.indexOf(mathSing)).trim();
-        rightOperand = input.substring(input.indexOf(mathSing) + 1, input.length()).trim();
+        leftOperand = a.substring(0, a.indexOf(mathSing)).trim();
+        rightOperand = a.substring(a.indexOf(mathSing) + 1, a.length()).trim();
 
         if (leftOperand.equals("") || (rightOperand.equals(""))) {
             throw new Exception("Строка не является математической операцией");
