@@ -34,14 +34,10 @@ public class Calculator {
             if (leftOperand.equals(number)) {
                 this.countForArabic++;
                 this.firstNum = Integer.parseInt(leftOperand);
-                break;
             }
-        }
-        for (String number : numbers) {
             if (rightOperand.equals(number)) {
                 this.countForArabic++;
                 this.secondNum = Integer.parseInt(rightOperand);
-                break;
             }
         }
         for (RomanNumbers rn : RomanNumbers.values()) {
@@ -51,17 +47,13 @@ public class Calculator {
                 }
                 this.countForRoman++;
                 this.firstNum = rn.getI();
-                break;
             }
-        }
-        for (RomanNumbers rn : RomanNumbers.values()) {
             if (rightOperand.equals(rn.name())) {
                 if (rn.getI() > 10) {
                     break;
                 }
                 this.countForRoman++;
                 this.secondNum = rn.getI();
-                break;
             }
         }
         if ((countForRoman == 1) && (countForArabic == 1)) {
