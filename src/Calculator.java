@@ -2,9 +2,11 @@ public class Calculator {
     String result = "";
     int countForArabic = 0;
     int countForRoman = 0;
-    String mathSing = "";
-    String leftOperand = "";
-    String rightOperand = "";
+    String mathSing;
+    String leftOperand;
+    String rightOperand;
+    int firstNum = 0;
+    int secondNum = 0;
 
     public boolean isValid(String a) throws Exception {
         String[] mathSings = {"+", "-", "*", "/"};
@@ -18,13 +20,13 @@ public class Calculator {
                 mathSing = mathSings[i];
             }
         }
-        if (mathSing.equals("")) {
+        if (mathSing == null) {
             throw new Exception("Отсутствует допустимый математический знак: +,-,*,/");
         }
         leftOperand = a.substring(0, a.indexOf(mathSing)).trim();
         rightOperand = a.substring(a.indexOf(mathSing) + 1, a.length()).trim();
 
-        if (leftOperand.equals("") || (rightOperand.equals(""))) {
+        if (leftOperand == null || (rightOperand == null)) {
             throw new Exception("Строка не является математической операцией");
         }
         for (int i = 0; i < numbers.length; i++) {
@@ -41,24 +43,27 @@ public class Calculator {
         }
         for (RomanNumbers rn : RomanNumbers.values()) {
             if (leftOperand.equals(rn.name())) {
-                    if (rn.getI() > 10) {
-                        break;
-                    }
+                if (rn.getI() > 10) {
+                    break;
+                }
                 this.countForRoman++;
                 break;
             }
         }
         for (RomanNumbers rn : RomanNumbers.values()) {
             if (rightOperand.equals(rn.name())) {
-                    if (rn.getI() > 10) {
-                        break;
-                    }
+                if (rn.getI() > 10) {
+                    break;
+                }
                 this.countForRoman++;
                 break;
             }
         }
+        if ((countForRoman == 1) && (countForArabic == 1)) {
+            throw new Exception("Используются одновременно разные системы счисления");
+        }
         if ((countForRoman != 2) && (countForArabic != 2)) {
-            throw new Exception("Используются одновременно разные системы счисления или введены недопустимые значения.");
+            throw new Exception("Введены недопустимые значения.");
         }
         return true;
     }
@@ -77,8 +82,8 @@ public class Calculator {
     }
 
     public void arabicCalc(String a, String b, String c) {
-        int firstNum = Integer.parseInt(a);
-        int secondNum = Integer.parseInt(b);
+        this.firstNum = Integer.parseInt(a);
+        this.secondNum = Integer.parseInt(b);
 
         switch (c) {
             case "+":
@@ -97,17 +102,14 @@ public class Calculator {
 
     public void romanCalc(String a, String b, String c) throws Exception {
 
-
-        int firstNum = 0;
-        int secondNum = 0;
         for (RomanNumbers rn : RomanNumbers.values()) {
-            if (leftOperand.equals(rn.name())) {
-                firstNum = rn.getI();
+            if (a.equals(rn.name())) {
+                this.firstNum = rn.getI();
             }
         }
         for (RomanNumbers rn : RomanNumbers.values()) {
-            if (rightOperand.equals(rn.name())) {
-                secondNum = rn.getI();
+            if (b.equals(rn.name())) {
+                this.secondNum = rn.getI();
             }
         }
 
@@ -137,7 +139,7 @@ public class Calculator {
         int resPart1 = 0;
         int resPart2 = 0;
         if (a < 1) {
-            throw new Exception("Ошикба, в римской системе нет отрицательных чисел");
+            throw new Exception("Ошикба, в римской системе нет отрицательных чисел и нуля");
         }
         for (RomanNumbers rn : RomanNumbers.values()) {
             if (a == rn.getI()) {
