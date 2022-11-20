@@ -15,28 +15,28 @@ public class Calculator {
         if (a.length() < 3) {
             return false;
         }
-        for (int i = 0; i < mathSings.length; i++) {
-            if (a.contains(mathSings[i])) {
-                mathSing = mathSings[i];
+        for (String sing : mathSings) {
+            if (a.contains(sing)) {
+                mathSing = sing;
             }
         }
         if (mathSing == null) {
             throw new Exception("Отсутствует допустимый математический знак: +,-,*,/");
         }
         leftOperand = a.substring(0, a.indexOf(mathSing)).trim();
-        rightOperand = a.substring(a.indexOf(mathSing) + 1, a.length()).trim();
+        rightOperand = a.substring(a.indexOf(mathSing) + 1).trim();
 
-        if (leftOperand == null || (rightOperand == null)) {
+        if (leftOperand.equals("") || (rightOperand.equals(""))) {
             throw new Exception("Строка не является математической операцией");
         }
-        for (int i = 0; i < numbers.length; i++) {
-            if (leftOperand.equals(numbers[i])) {
+        for (String number : numbers) {
+            if (leftOperand.equals(number)) {
                 this.countForArabic++;
                 break;
             }
         }
-        for (int i = 0; i < numbers.length; i++) {
-            if (rightOperand.equals(numbers[i])) {
+        for (String number : numbers) {
+            if (rightOperand.equals(number)) {
                 this.countForArabic++;
                 break;
             }
@@ -96,7 +96,7 @@ public class Calculator {
                 result = String.valueOf(firstNum * secondNum);
                 return;
             case "/":
-                result = String.valueOf(((int) firstNum / secondNum));
+                result = String.valueOf((firstNum / secondNum));
         }
     }
 
@@ -113,7 +113,7 @@ public class Calculator {
             }
         }
 
-        int resultInArabic = 0;
+        int resultInArabic;
         switch (c) {
             case "+":
                 resultInArabic = firstNum + secondNum;
@@ -128,7 +128,7 @@ public class Calculator {
                 resultInRoman(resultInArabic);
                 return;
             case "/":
-                resultInArabic = (int) firstNum / secondNum;
+                resultInArabic = firstNum / secondNum;
                 resultInRoman(resultInArabic);
         }
     }
