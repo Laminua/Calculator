@@ -1,11 +1,12 @@
 public class Calculator {
+    Math mt = new Math();
     String result = "";
     int countForArabic = 0;
     int countForRoman = 0;
-    String mathSing;
+    public String mathSing;
     String leftOperand;
     String rightOperand;
-    int firstNum = 0;
+    public int firstNum = 0;
     int secondNum = 0;
 
     public boolean isValid(String a) throws Exception {
@@ -71,9 +72,9 @@ public class Calculator {
     public String calc(String input) throws Exception {
         if (isValid(input)) {
             if (countForArabic == 2) {
-                arabicCalc(leftOperand, rightOperand, mathSing);
+                arabicCalc(leftOperand, rightOperand);
             } else if (countForRoman == 2) {
-                romanCalc(leftOperand, rightOperand, mathSing);
+                romanCalc(leftOperand, rightOperand);
             }
         } else {
             throw new Exception("Строка не является математической операцией");
@@ -81,26 +82,14 @@ public class Calculator {
         return result;
     }
 
-    public void arabicCalc(String a, String b, String c) {
+    public void arabicCalc(String a, String b) {
         this.firstNum = Integer.parseInt(a);
         this.secondNum = Integer.parseInt(b);
 
-        switch (c) {
-            case "+":
-                result = String.valueOf(firstNum + secondNum);
-                return;
-            case "-":
-                result = String.valueOf(firstNum - secondNum);
-                return;
-            case "*":
-                result = String.valueOf(firstNum * secondNum);
-                return;
-            case "/":
-                result = String.valueOf((firstNum / secondNum));
-        }
+        result = String.valueOf(mt.calculations(firstNum, secondNum, mathSing));
     }
 
-    public void romanCalc(String a, String b, String c) throws Exception {
+    public void romanCalc(String a, String b) throws Exception {
 
         for (RomanNumbers rn : RomanNumbers.values()) {
             if (a.equals(rn.name())) {
@@ -114,23 +103,8 @@ public class Calculator {
         }
 
         int resultInArabic;
-        switch (c) {
-            case "+":
-                resultInArabic = firstNum + secondNum;
-                resultInRoman(resultInArabic);
-                return;
-            case "-":
-                resultInArabic = firstNum - secondNum;
-                resultInRoman(resultInArabic);
-                return;
-            case "*":
-                resultInArabic = firstNum * secondNum;
-                resultInRoman(resultInArabic);
-                return;
-            case "/":
-                resultInArabic = firstNum / secondNum;
-                resultInRoman(resultInArabic);
-        }
+        resultInArabic = mt.calculations(firstNum, secondNum, mathSing);
+        resultInRoman(resultInArabic);
     }
 
     public void resultInRoman(int a) throws Exception {
@@ -139,7 +113,7 @@ public class Calculator {
         int resPart1 = 0;
         int resPart2 = 0;
         if (a < 1) {
-            throw new Exception("Ошикба, в римской системе нет отрицательных чисел и нуля");
+            throw new Exception("Ошибка, в римской системе нет отрицательных чисел и нуля");
         }
         for (RomanNumbers rn : RomanNumbers.values()) {
             if (a == rn.getI()) {
