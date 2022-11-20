@@ -3,10 +3,10 @@ public class Calculator {
     String result = "";
     int countForArabic = 0;
     int countForRoman = 0;
-    public String mathSing;
+    String mathSing;
     String leftOperand;
     String rightOperand;
-    public int firstNum = 0;
+    int firstNum = 0;
     int secondNum = 0;
 
     public boolean isValid(String a) throws Exception {
