@@ -19,7 +19,7 @@ public enum RomanNumbers {
     LXXX(80),
     XC(90),
     C(100);
-    private int i;
+    private final int i;
 
     RomanNumbers (int i) {
         this.i = i;

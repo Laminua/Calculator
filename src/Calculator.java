@@ -1,5 +1,5 @@
 public class Calculator {
-    Math mt = new Math();
+
     String result = "";
     int countForArabic = 0;
     int countForRoman = 0;
@@ -33,12 +33,14 @@ public class Calculator {
         for (String number : numbers) {
             if (leftOperand.equals(number)) {
                 this.countForArabic++;
+                this.firstNum = Integer.parseInt(leftOperand);
                 break;
             }
         }
         for (String number : numbers) {
             if (rightOperand.equals(number)) {
                 this.countForArabic++;
+                this.secondNum = Integer.parseInt(rightOperand);
                 break;
             }
         }
@@ -48,6 +50,7 @@ public class Calculator {
                     break;
                 }
                 this.countForRoman++;
+                this.firstNum = rn.getI();
                 break;
             }
         }
@@ -57,6 +60,7 @@ public class Calculator {
                     break;
                 }
                 this.countForRoman++;
+                this.secondNum = rn.getI();
                 break;
             }
         }
@@ -70,11 +74,14 @@ public class Calculator {
     }
 
     public String calc(String input) throws Exception {
+        Math mt = new Math();
+        int resultInArabic;
         if (isValid(input)) {
             if (countForArabic == 2) {
-                arabicCalc(leftOperand, rightOperand);
+                result = String.valueOf(mt.calculations(firstNum, secondNum, mathSing));
             } else if (countForRoman == 2) {
-                romanCalc(leftOperand, rightOperand);
+                resultInArabic = mt.calculations(firstNum, secondNum, mathSing);
+                result = resultInRoman(resultInArabic);
             }
         } else {
             throw new Exception("Строка не является математической операцией");
@@ -82,32 +89,7 @@ public class Calculator {
         return result;
     }
 
-    public void arabicCalc(String a, String b) {
-        this.firstNum = Integer.parseInt(a);
-        this.secondNum = Integer.parseInt(b);
-
-        result = String.valueOf(mt.calculations(firstNum, secondNum, mathSing));
-    }
-
-    public void romanCalc(String a, String b) throws Exception {
-
-        for (RomanNumbers rn : RomanNumbers.values()) {
-            if (a.equals(rn.name())) {
-                this.firstNum = rn.getI();
-            }
-        }
-        for (RomanNumbers rn : RomanNumbers.values()) {
-            if (b.equals(rn.name())) {
-                this.secondNum = rn.getI();
-            }
-        }
-
-        int resultInArabic;
-        resultInArabic = mt.calculations(firstNum, secondNum, mathSing);
-        resultInRoman(resultInArabic);
-    }
-
-    public void resultInRoman(int a) throws Exception {
+    public String resultInRoman(int a) throws Exception {
         String resultArabic1 = "";
         String resultArabic2 = "";
         int resPart1 = 0;
@@ -131,5 +113,6 @@ public class Calculator {
             }
             result = resultArabic1 + resultArabic2;
         }
+        return result;
     }
 }
