@@ -9,13 +9,9 @@ public class Calculator {
         int resultInArabic;
         if (vl.isValid(input)) {
             if (vl.getCountForArabic() == 2) {
-                result = String.valueOf(mt.calculations(vl.getFirstNum(),
-                        vl.getSecondNum(),
-                        vl.getMathSign()));
+                result = String.valueOf(mt.calculations(vl.getFirstNum(), vl.getSecondNum(), vl.getMathSign()));
             } else if (vl.getCountForRoman() == 2) {
-                resultInArabic = mt.calculations(vl.getFirstNum(),
-                        vl.getSecondNum(),
-                        vl.getMathSign());
+                resultInArabic = mt.calculations(vl.getFirstNum(), vl.getSecondNum(), vl.getMathSign());
                 result = convertor.resultInRoman(resultInArabic);
             }
         } else {
